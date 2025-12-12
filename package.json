@@ -1,0 +1,30 @@
+{
+  "name": "blog-service",
+  "version": "1.0.0",
+  "description": "blog service",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "buf generate buf.build/rahul-dev01/blog-proto"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@bufbuild/protoc-gen-connect-es": "^0.13.0",
+    "@bufbuild/protoc-gen-es": "^1.10.1",
+    "@types/node": "^25.0.1",
+    "@types/pg": "^8.16.0",
+    "prisma": "^7.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@bufbuild/connect": "^0.13.0",
+    "@bufbuild/connect-node": "^0.13.0",
+    "@bufbuild/protobuf": "^1.10.1",
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "^7.1.0",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3"
+  }
+}
