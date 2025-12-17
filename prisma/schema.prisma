@@ -1,27 +1,20 @@
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../generated/client"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-enum Category {
-  TECHNOLOGY
-  DEVELOPMENT
-  DESIGN
-  LIFESTYLE
-  CAREER
-}
 
 model Post {
   id        String   @id @default(uuid())
   authorId  String   // Reference to User ID from Auth Service
   title     String
   content   String
-  image     String?
-  category  Category
+  image     String
+  category  Int
   readTime Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
