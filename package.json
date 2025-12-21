@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "buf generate buf.build/rahul-dev01/blog-proto",
+    "prisma:generate": "prisma generate",
     "dev": "ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"

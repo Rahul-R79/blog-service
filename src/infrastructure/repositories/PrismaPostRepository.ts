@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../generated/client/client";
+import { PrismaClient } from "@prisma/client";
 import { IPostRepository } from "../../domain/repositories/IPostRepository";
 import { Post } from "../../domain/entities/Post";
 
