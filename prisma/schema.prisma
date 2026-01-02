@@ -7,10 +7,9 @@ datasource db {
   url      = env("SUPABASE_DATABASE_URL")
 }
 
-
 model Post {
   id        String   @id @default(uuid())
-  authorId  String   // Reference to User ID from Auth Service
+  authorId  String   
   title     String
   content   String
   image     String
