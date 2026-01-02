@@ -40,7 +40,7 @@ async function main() {
 
     const PORT = Number(process.env.PORT);
 
-    server.listen(PORT,() => {
+    server.listen(PORT, "0.0.0.0", () => {
         console.log(`🚀 Blog Service running on http://${PORT}`);
     });
 
