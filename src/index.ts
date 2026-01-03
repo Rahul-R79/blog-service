@@ -38,10 +38,10 @@ async function main() {
 
     const server = createServer(handler);
 
-    const PORT = Number(process.env.PORT);
+    const PORT = Number(process.env.PORT || 5002);
 
     server.listen(PORT, "0.0.0.0", () => {
-        console.log(`🚀 Blog Service running on http://${PORT}`);
+        console.log(`🚀 Blog Service running on http://0.0.0.0:${PORT}`);
     });
 
     const shutdown = async () => {
@@ -56,4 +56,17 @@ async function main() {
     process.on("SIGTERM", shutdown);
 }
 
-main();
+main().catch((err) => {
+    console.error("Startup failed:", err);
+    process.exit(1);
+});
+
+process.on("unhandledRejection", (err) => {
+    console.error("Unhandled Rejection:", err);
+    process.exit(1);
+});
+
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err);
+    process.exit(1);
+});
