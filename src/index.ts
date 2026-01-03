@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { createServer } from "http";
 import { connectNodeAdapter } from "@connectrpc/connect-node";
 import { blogServiceHandler } from "./presentation/grpc/BlogService";
 import { S3StorageService } from './infrastructure/services/S3StorageService';
@@ -10,6 +9,7 @@ import { UpdatePostUseCase } from "./application/use-cases/UpdatePosts";
 import { DeletePostUseCase } from "./application/use-cases/DeletePosts";
 import { GenerateUploadUrlUseCase } from './application/use-cases/GenerateUploadUrl';
 import { prisma, ConnectDB } from "./infrastructure/config/database";
+import { startGrpcServer } from "./infrastructure/config/server";
 
 async function main() {
     dotenv.config();
@@ -36,24 +36,15 @@ async function main() {
         },
     });
 
-    const server = createServer(handler);
-
     const PORT = Number(process.env.PORT || 5002);
 
-    server.listen(PORT, "0.0.0.0", () => {
-        console.log(`🚀 Blog Service running on http://0.0.0.0:${PORT}`);
+    startGrpcServer(handler, {
+        port: PORT,
+        serviceName: "Blog Service",
+        onShutdown: async () => {
+            await prisma.$disconnect();
+        }
     });
-
-    const shutdown = async () => {
-        console.log("Shutting down...");
-        server.close();
-        await prisma.$disconnect();
-        console.log("Cleanup finished.");
-        process.exit(0);
-    };
-
-    process.on("SIGINT", shutdown);
-    process.on("SIGTERM", shutdown);
 }
 
 main().catch((err) => {
